@@ -1,0 +1,11 @@
+{
+    "name": "bank-management-system",
+    "version": "1.0.0",
+    "description": "A modern Bank Management System with GUI",
+    "dependencies": [
+        "sfml",
+        "imgui-sfml",
+        "sqlite3",
+        "nlohmann-json"
+    ]
+}

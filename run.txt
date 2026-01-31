@@ -1,0 +1,17 @@
+ cd ~/Project/genesis/WiseVault && mkdir -p data && mkdir -p build && cd build && cmake .. && make -j$(nproc) && ./SimpleBankSystem
+
+ or 
+
+Make both executable:
+
+Bash -
+cd ~/Project/genesis/WiseVault
+chmod +x build.sh run.sh
+
+./build.sh   # Build the project
+./run.sh     # Run the project
+
+or 
+
+incase of git clone
+./run.sh

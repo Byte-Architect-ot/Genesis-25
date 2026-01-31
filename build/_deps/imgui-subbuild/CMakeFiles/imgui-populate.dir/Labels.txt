@@ -1,0 +1,14 @@
+# Target labels
+ imgui-populate
+# Source files and their labels
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/CMakeFiles/imgui-populate
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/CMakeFiles/imgui-populate.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/CMakeFiles/imgui-populate-complete.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-build.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-configure.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-download.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-install.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-mkdir.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-patch.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-test.rule
+/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-update.rule
