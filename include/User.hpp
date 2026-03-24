@@ -3,44 +3,43 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 #include "Account.hpp"
 
 class User {
 private:
     int id;
     std::string username;
-    std::string password;  // This will be hashed
+    std::string password;
     std::string fullName;
-    
-    // Vector of smart pointers to Account objects
-    // shared_ptr automatically manages memory
-    std::vector<std::shared_ptr<Account>> accounts;
+
+    // Raw pointers - we manually delete these in the destructor
+    std::vector<Account*> accounts;
 
 public:
-    // Constructor
     User();
     User(const std::string& username, const std::string& password, const std::string& name);
+    ~User(); // Destructor deletes all Account* pointers
 
     // Getters
-    int getId() const { return id; }
-    std::string getUsername() const { return username; }
-    std::string getPassword() const { return password; }
-    std::string getFullName() const { return fullName; }
-    std::vector<std::shared_ptr<Account>>& getAccounts() { return accounts; }
+    int getId() const;
+    std::string getUsername() const;
+    std::string getPassword() const;
+    std::string getFullName() const;
+    std::vector<Account*>& getAccounts();
 
     // Setters
-    void setId(int newId) { id = newId; }
-    void setUsername(const std::string& name) { username = name; }
-    void setPassword(const std::string& pass) { password = pass; }
-    void setFullName(const std::string& name) { fullName = name; }
+    void setId(int newId);
+    void setUsername(const std::string& name);
+    void setPassword(const std::string& pass);
+    void setFullName(const std::string& name);
 
     // Account management
-    void addAccount(std::shared_ptr<Account> account);
-    std::shared_ptr<Account> getAccountByNumber(const std::string& accNum);
+    void addAccount(Account* account);
+    Account* getAccountByNumber(const std::string& accNum);
     double getTotalBalance() const;
+    void clearAccounts(); // Deletes all accounts and empties the vector
 
-    // Password hashing (simple version)
+    // Simple password hashing (djb2 algorithm)
     static std::string hashPassword(const std::string& password);
     static bool verifyPassword(const std::string& password, const std::string& hash);
 };

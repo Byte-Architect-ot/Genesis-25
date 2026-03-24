@@ -2,19 +2,8 @@
 #define ACCOUNT_HPP
 
 #include <string>
-#include <vector>
 
-// Structure to store transaction details
-struct Transaction {
-    int id;
-    std::string type;      // "DEPOSIT", "WITHDRAW", "TRANSFER_IN", "TRANSFER_OUT"
-    double amount;
-    double balanceAfter;
-    std::string date;
-    std::string description;
-};
-
-// Base class for all account types
+// Base class - all account types inherit from this
 class Account {
 protected:
     int id;
@@ -22,64 +11,53 @@ protected:
     std::string accountNumber;
     std::string accountType;
     double balance;
-    std::vector<Transaction> transactions;
 
 public:
-    // Constructor
     Account(int userId, const std::string& type);
-    
-    // Virtual destructor (important for inheritance)
-    virtual ~Account() = default;
+    virtual ~Account();
 
-    // Getters (to access private data)
-    int getId() const { return id; }
-    int getUserId() const { return userId; }
-    std::string getAccountNumber() const { return accountNumber; }
-    std::string getAccountType() const { return accountType; }
-    double getBalance() const { return balance; }
-    std::vector<Transaction>& getTransactions() { return transactions; }
+    // Getters
+    int getId() const;
+    int getUserId() const;
+    std::string getAccountNumber() const;
+    std::string getAccountType() const;
+    double getBalance() const;
 
-    // Setters (to modify private data)
-    void setId(int newId) { id = newId; }
-    void setAccountNumber(const std::string& num) { accountNumber = num; }
-    void setBalance(double newBalance) { balance = newBalance; }
+    // Setters
+    void setId(int newId);
+    void setAccountNumber(const std::string& num);
+    void setBalance(double newBalance);
 
-    // Virtual functions (can be overridden by child classes)
+    // Virtual - child classes override these for custom rules
     virtual bool canWithdraw(double amount) const;
-    virtual double getMinimumBalance() const { return 0; }
-    
-    // Common operations
+    virtual double getMinimumBalance() const;
+
     bool deposit(double amount);
     bool withdraw(double amount);
-    
-    // Generate unique account number
+
     static std::string generateAccountNumber();
 };
 
-// Savings Account - inherits from Account
+// Savings: must maintain Rs.500 minimum balance
 class SavingsAccount : public Account {
 private:
-    static constexpr double MIN_BALANCE = 500.0; 
-    
+    static constexpr double MIN_BALANCE = 500.0;
+
 public:
     SavingsAccount(int userId);
-    
-    // Override parent class functions
     bool canWithdraw(double amount) const override;
-    double getMinimumBalance() const override { return MIN_BALANCE; }
+    double getMinimumBalance() const override;
 };
 
-// Current Account - inherits from Account
+// Current: allows overdraft (can go negative up to limit)
 class CurrentAccount : public Account {
 private:
-    double overdraftLimit;  // Can go negative up to this limit
-    
+    double overdraftLimit;
+
 public:
     CurrentAccount(int userId, double overdraft = 1000.0);
-    
-    // Override parent class functions
     bool canWithdraw(double amount) const override;
-    double getOverdraftLimit() const { return overdraftLimit; }
+    double getOverdraftLimit() const;
 };
 
 #endif

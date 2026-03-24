@@ -244,23 +244,9 @@ CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h /usr/include/string.h \
  /usr/include/strings.h /usr/include/assert.h \
  /home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-src/imgui-SFML.h \
- /usr/include/c++/13/memory \
- /usr/include/c++/13/bits/stl_raw_storage_iter.h \
- /usr/include/c++/13/bits/align.h /usr/include/c++/13/bits/unique_ptr.h \
- /usr/include/c++/13/bits/shared_ptr.h \
- /usr/include/c++/13/bits/shared_ptr_base.h \
- /usr/include/c++/13/bits/allocated_ptr.h \
- /usr/include/c++/13/ext/concurrence.h \
- /usr/include/c++/13/bits/shared_ptr_atomic.h \
- /usr/include/c++/13/bits/atomic_base.h \
- /usr/include/c++/13/bits/atomic_lockfree_defines.h \
- /usr/include/c++/13/backward/auto_ptr.h \
- /usr/include/c++/13/pstl/glue_memory_defs.h \
  /home/shreyashh/Project/genesis/WiseVault/include/User.hpp \
  /home/shreyashh/Project/genesis/WiseVault/include/Account.hpp \
  /home/shreyashh/Project/genesis/WiseVault/include/Database.hpp \
- /usr/include/sqlite3.h /usr/include/c++/13/sstream \
- /usr/include/c++/13/istream /usr/include/c++/13/bits/istream.tcc \
- /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/iomanip \
- /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/cstring \
- /usr/include/c++/13/iostream
+ /usr/include/sqlite3.h /usr/include/c++/13/cstring \
+ /usr/include/c++/13/iostream /usr/include/c++/13/istream \
+ /usr/include/c++/13/bits/istream.tcc
