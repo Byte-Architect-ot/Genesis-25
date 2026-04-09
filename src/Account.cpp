@@ -1,28 +1,19 @@
 #include "Account.hpp"
 
-Account::Account(int userId,
-                 const std::string& username,
-                 const std::string& fullName,
-                 const std::string& accountType)
-    : accountId(0),
-      userId(userId),
-      accountNumber(""),
-      accountType(accountType),
-      balance(0.0) {
-    setUsername(username);
-    setFullName(fullName);
-    setRole("USER");
+Account::Account(const User& u, int accountId, const std::string& accNo, const std::string& type, double bal)
+    : accountId(accountId), accountNumber(accNo), accountType(type), balance(bal) {
+    setId(u.getId());
+    setUsername(u.getUsername());
+    setFullName(u.getFullName());
+    setRole(u.getRole());
+    setMobile(u.getMobile());
+    setEmail(u.getEmail());
+    setAddress(u.getAddress());
+    setAadhaar(u.getAadhaar());
 }
 
 int Account::getAccountId() const { return accountId; }
-void Account::setAccountId(int v) { accountId = v; }
-
-int Account::getUserId() const { return userId; }
-void Account::setUserId(int v) { userId = v; }
-
 const std::string& Account::getAccountNumber() const { return accountNumber; }
-void Account::setAccountNumber(const std::string& v) { accountNumber = v; }
-
 const std::string& Account::getAccountType() const { return accountType; }
 
 double Account::getBalance() const { return balance; }
@@ -38,21 +29,18 @@ bool Account::withdraw(double amount) {
     return true;
 }
 
-SavingsAccount::SavingsAccount(int userId, const std::string& username, const std::string& fullName)
-    : Account(userId, username, fullName, "SAVINGS") {}
+SavingsAccount::SavingsAccount(const User& u, int accountId, const std::string& accNo, double bal)
+    : Account(u, accountId, accNo, "SAVINGS", bal) {}
 
 bool SavingsAccount::canWithdraw(double amount) const {
     if (amount <= 0) return false;
-    return amount <= balance;
+    return amount <= getBalance();
 }
 
-CurrentAccount::CurrentAccount(int userId, const std::string& username, const std::string& fullName, double overdraftLimit)
-    : Account(userId, username, fullName, "CURRENT"),
-      overdraftLimit(overdraftLimit) {}
+CurrentAccount::CurrentAccount(const User& u, int accountId, const std::string& accNo, double bal, double limit)
+    : Account(u, accountId, accNo, "CURRENT", bal), overdraftLimit(limit) {}
 
 bool CurrentAccount::canWithdraw(double amount) const {
     if (amount <= 0) return false;
-    return (balance - amount) >= (-overdraftLimit);
+    return (getBalance() - amount) >= (-overdraftLimit);
 }
-
-double CurrentAccount::getOverdraftLimit() const { return overdraftLimit; }

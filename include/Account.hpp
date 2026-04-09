@@ -5,30 +5,18 @@
 #include <string>
 
 class Account : public User {
-protected:
+private:
     int accountId;
-    int userId;
     std::string accountNumber;
     std::string accountType;
     double balance;
 
 public:
-    Account(int userId,
-            const std::string& username,
-            const std::string& fullName,
-            const std::string& accountType);
-
+    Account(const User& u, int accountId, const std::string& accNo, const std::string& type, double bal);
     virtual ~Account() = default;
 
     int getAccountId() const;
-    void setAccountId(int v);
-
-    int getUserId() const;
-    void setUserId(int v);
-
     const std::string& getAccountNumber() const;
-    void setAccountNumber(const std::string& v);
-
     const std::string& getAccountType() const;
 
     double getBalance() const;
@@ -42,7 +30,7 @@ public:
 
 class SavingsAccount : public Account {
 public:
-    SavingsAccount(int userId, const std::string& username, const std::string& fullName);
+    SavingsAccount(const User& u, int accountId, const std::string& accNo, double bal);
     bool canWithdraw(double amount) const override;
 };
 
@@ -51,9 +39,8 @@ private:
     double overdraftLimit;
 
 public:
-    CurrentAccount(int userId, const std::string& username, const std::string& fullName, double overdraftLimit = 5000.0);
+    CurrentAccount(const User& u, int accountId, const std::string& accNo, double bal, double limit = 5000.0);
     bool canWithdraw(double amount) const override;
-    double getOverdraftLimit() const;
 };
 
 #endif
