@@ -2,8 +2,6 @@
 #define USER_HPP
 
 #include <string>
-#include <vector>
-#include "Account.hpp"
 
 class User {
 private:
@@ -11,37 +9,49 @@ private:
     std::string username;
     std::string password;
     std::string fullName;
-
-    // Raw pointers - we manually delete these in the destructor
-    std::vector<Account*> accounts;
+    std::string role;
+    std::string mobile;
+    std::string email;
+    std::string address;
+    std::string aadhaar;
 
 public:
     User();
-    User(const std::string& username, const std::string& password, const std::string& name);
-    ~User(); // Destructor deletes all Account* pointers
+    User(const std::string& username,
+         const std::string& password,
+         const std::string& fullName,
+         const std::string& role,
+         const std::string& mobile,
+         const std::string& email,
+         const std::string& address,
+         const std::string& aadhaar);
 
-    // Getters
     int getId() const;
-    std::string getUsername() const;
-    std::string getPassword() const;
-    std::string getFullName() const;
-    std::vector<Account*>& getAccounts();
-
-    // Setters
     void setId(int newId);
-    void setUsername(const std::string& name);
-    void setPassword(const std::string& pass);
-    void setFullName(const std::string& name);
 
-    // Account management
-    void addAccount(Account* account);
-    Account* getAccountByNumber(const std::string& accNum);
-    double getTotalBalance() const;
-    void clearAccounts(); // Deletes all accounts and empties the vector
+    const std::string& getUsername() const;
+    void setUsername(const std::string& v);
 
-    // Simple password hashing (djb2 algorithm)
-    static std::string hashPassword(const std::string& password);
-    static bool verifyPassword(const std::string& password, const std::string& hash);
+    const std::string& getPassword() const;
+    void setPassword(const std::string& v);
+
+    const std::string& getFullName() const;
+    void setFullName(const std::string& v);
+
+    const std::string& getRole() const;
+    void setRole(const std::string& v);
+
+    const std::string& getMobile() const;
+    void setMobile(const std::string& v);
+
+    const std::string& getEmail() const;
+    void setEmail(const std::string& v);
+
+    const std::string& getAddress() const;
+    void setAddress(const std::string& v);
+
+    const std::string& getAadhaar() const;
+    void setAadhaar(const std::string& v);
 };
 
 #endif

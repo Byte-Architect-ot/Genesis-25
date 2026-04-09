@@ -1,86 +1,70 @@
 #include "Account.hpp"
-#include <random>
-#include <sstream>
-#include <iostream>
 
-Account::Account(int userId, const std::string& type)
-    : id(0), userId(userId), accountType(type), balance(0.0) {
-    accountNumber = generateAccountNumber();
+Account::Account(int userId,
+                 const std::string& username,
+                 const std::string& fullName,
+                 const std::string& accountType)
+    : accountId(0),
+      userId(userId),
+      accountNumber(""),
+      accountType(accountType),
+      balance(500.0) {
+    setUsername(username);
+    setFullName(fullName);
+    setRole("USER");
 }
 
-Account::~Account() {
-    // Base class destructor - virtual so child destructors run first
-}
+int Account::getId() const { return accountId; }
+void Account::setId(int newId) { accountId = newId; }
 
-int Account::getId() const { return id; }
 int Account::getUserId() const { return userId; }
-std::string Account::getAccountNumber() const { return accountNumber; }
-std::string Account::getAccountType() const { return accountType; }
+
+const std::string& Account::getAccountNumber() const { return accountNumber; }
+void Account::setAccountNumber(const std::string& v) { accountNumber = v; }
+
+const std::string& Account::getAccountType() const { return accountType; }
+
 double Account::getBalance() const { return balance; }
+void Account::setBalance(double v) { balance = v; }
 
-void Account::setId(int newId) { id = newId; }
-void Account::setAccountNumber(const std::string& num) { accountNumber = num; }
-void Account::setBalance(double newBalance) { balance = newBalance; }
-
-bool Account::canWithdraw(double amount) const {
-    return balance >= amount;
+void Account::deposit(double amount) {
+    if (amount > 0) balance += amount;
 }
 
-double Account::getMinimumBalance() const {
-    return 0.0;
-}
-
-bool Account::deposit(double amount) {
-    if (amount <= 0) return false;
-    balance += amount;
-    return true;
-}
-
-// Uses virtual canWithdraw() - polymorphism picks the right child version
 bool Account::withdraw(double amount) {
-    if (amount <= 0) return false;
     if (!canWithdraw(amount)) return false;
     balance -= amount;
     return true;
 }
 
-std::string Account::generateAccountNumber() {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    static std::uniform_int_distribution<> dis(0, 9);
-
-    std::stringstream ss;
-    ss << "ACC";
-    for (int i = 0; i < 10; i++) {
-        ss << dis(gen);
-    }
-    return ss.str();
-}
-
-// Savings - must keep at least Rs.500 after withdrawal
-SavingsAccount::SavingsAccount(int userId)
-    : Account(userId, "SAVINGS") {
-    balance = MIN_BALANCE;
-}
+SavingsAccount::SavingsAccount(int userId, const std::string& username, const std::string& fullName)
+    : Account(userId, username, fullName, "SAVINGS") {}
 
 bool SavingsAccount::canWithdraw(double amount) const {
-    return (balance - amount) >= MIN_BALANCE;
+    if (amount <= 0) return false;
+    return amount <= balance;
 }
 
-double SavingsAccount::getMinimumBalance() const {
-    return MIN_BALANCE;
+void SavingsAccount::calculateInterest() {
+    balance += balance * 0.04;
 }
 
-// Current - can go negative up to overdraft limit
-CurrentAccount::CurrentAccount(int userId, double overdraft)
-    : Account(userId, "CURRENT"), overdraftLimit(overdraft) {
-    balance = 0.0;
-}
+CurrentAccount::CurrentAccount(int userId, const std::string& username, const std::string& fullName)
+    : Account(userId, username, fullName, "CURRENT") {}
 
 bool CurrentAccount::canWithdraw(double amount) const {
-    return (balance - amount) >= -overdraftLimit;
+    if (amount <= 0) return false;
+    return amount <= balance;
 }
 
-double CurrentAccount::getOverdraftLimit() const {
-    return overdraftLimit;
+FixedDepositAccount::FixedDepositAccount(int userId, const std::string& username, const std::string& fullName)
+    : Account(userId, username, fullName, "FD") {}
+
+bool FixedDepositAccount::canWithdraw(double amount) const {
+    (void)amount;
+    return false;
+}
+
+void FixedDepositAccount::calculateInterest() {
+    balance += balance * 0.07;
 }

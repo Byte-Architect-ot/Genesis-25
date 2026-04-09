@@ -1,10 +1,5 @@
 #!/bin/bash
-
-cd ~/Project/genesis/WiseVault
-mkdir -p data build
-cd build
-cmake ..
-make -j$(nproc)
-
-echo ""
-echo "✓ Build complete! Run with: ./run.sh"
+set -e
+mkdir -p build
+cmake -S . -B build
+cmake --build build

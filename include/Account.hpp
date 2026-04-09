@@ -1,63 +1,63 @@
 #ifndef ACCOUNT_HPP
 #define ACCOUNT_HPP
 
+#include "User.hpp"
 #include <string>
 
-// Base class - all account types inherit from this
-class Account {
+class Account : public User {
 protected:
-    int id;
+    int accountId;
     int userId;
     std::string accountNumber;
     std::string accountType;
     double balance;
 
 public:
-    Account(int userId, const std::string& type);
-    virtual ~Account();
+    Account(int userId,
+            const std::string& username,
+            const std::string& fullName,
+            const std::string& accountType);
 
-    // Getters
+    virtual ~Account() = default;
+
     int getId() const;
-    int getUserId() const;
-    std::string getAccountNumber() const;
-    std::string getAccountType() const;
-    double getBalance() const;
-
-    // Setters
     void setId(int newId);
-    void setAccountNumber(const std::string& num);
-    void setBalance(double newBalance);
 
-    // Virtual - child classes override these for custom rules
-    virtual bool canWithdraw(double amount) const;
-    virtual double getMinimumBalance() const;
+    int getUserId() const;
 
-    bool deposit(double amount);
+    const std::string& getAccountNumber() const;
+    void setAccountNumber(const std::string& v);
+
+    const std::string& getAccountType() const;
+
+    double getBalance() const;
+    void setBalance(double v);
+
+    void deposit(double amount);
     bool withdraw(double amount);
 
-    static std::string generateAccountNumber();
+    virtual bool canWithdraw(double amount) const = 0;
+    virtual void calculateInterest() {}
 };
 
-// Savings: must maintain Rs.500 minimum balance
 class SavingsAccount : public Account {
-private:
-    static constexpr double MIN_BALANCE = 500.0;
-
 public:
-    SavingsAccount(int userId);
+    SavingsAccount(int userId, const std::string& username, const std::string& fullName);
     bool canWithdraw(double amount) const override;
-    double getMinimumBalance() const override;
+    void calculateInterest() override;
 };
 
-// Current: allows overdraft (can go negative up to limit)
 class CurrentAccount : public Account {
-private:
-    double overdraftLimit;
-
 public:
-    CurrentAccount(int userId, double overdraft = 1000.0);
+    CurrentAccount(int userId, const std::string& username, const std::string& fullName);
     bool canWithdraw(double amount) const override;
-    double getOverdraftLimit() const;
+};
+
+class FixedDepositAccount : public Account {
+public:
+    FixedDepositAccount(int userId, const std::string& username, const std::string& fullName);
+    bool canWithdraw(double amount) const override;
+    void calculateInterest() override;
 };
 
 #endif

@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/WiseVault.dir/src/main.cpp.o CMakeFiles/WiseVault.dir/src/User.cpp.o CMakeFiles/WiseVault.dir/src/Account.cpp.o CMakeFiles/WiseVault.dir/src/Transaction.cpp.o CMakeFiles/WiseVault.dir/src/Loan.cpp.o CMakeFiles/WiseVault.dir/src/Database.cpp.o CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o CMakeFiles/WiseVault.dir/src/Application.cpp.o -o WiseVault 

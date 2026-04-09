@@ -10,7 +10,6 @@ A beginner-friendly Bank Management System built with C++, SFML, and SQLite.
 - ✅ Withdraw Money
 - ✅ Transfer Between Accounts
 - ✅ View Transaction History
-- ✅ Graphical User Interface
 - ✅ Data saved to SQLite Database
 
 ## 📚 Concepts Used
@@ -52,16 +51,21 @@ A beginner-friendly Bank Management System built with C++, SFML, and SQLite.
 | amount | REAL | Transaction amount |
 | date | TEXT | Date and time |
 
-## 🚀 How to Run
 
-1. Install dependencies (SFML, SQLite3)
-2. Build with CMake
-3. Run the executable
-4. Register a new account or login
+### Build
+1) mkdir -p build
+2) cmake -S . -B build
+3) cmake --build build
 
-## 📝 Default Test Account
+### Run
+./build/WiseVault
 
-After first run, you can register with:
-- Username: test
-- Password: Test@123
-- Name: Test User
+### Admin login
+username: admin
+password: admin
+
+### Data files
+data/users.txt
+data/accounts.txt
+data/transactions.txt
+data/loans.txt

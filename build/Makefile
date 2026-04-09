@@ -85,51 +85,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles /home/shreyashh/Project/genesis/WiseVault/build//CMakeFiles/progress.marks
@@ -162,37 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named SimpleBankSystem
+# Target rules for targets named WiseVault
 
 # Build rule for target.
-SimpleBankSystem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SimpleBankSystem
-.PHONY : SimpleBankSystem
+WiseVault: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WiseVault
+.PHONY : WiseVault
 
 # fast build rule for target.
-SimpleBankSystem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/build
-.PHONY : SimpleBankSystem/fast
-
-#=============================================================================
-# Target rules for targets named ImGui-SFML
-
-# Build rule for target.
-ImGui-SFML: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ImGui-SFML
-.PHONY : ImGui-SFML
-
-# fast build rule for target.
-ImGui-SFML/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/build.make _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/build
-.PHONY : ImGui-SFML/fast
+WiseVault/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/build
+.PHONY : WiseVault/fast
 
 src/Account.o: src/Account.cpp.o
 .PHONY : src/Account.o
 
 # target to build an object file
 src/Account.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Account.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Account.cpp.o
 .PHONY : src/Account.cpp.o
 
 src/Account.i: src/Account.cpp.i
@@ -200,7 +142,7 @@ src/Account.i: src/Account.cpp.i
 
 # target to preprocess a source file
 src/Account.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Account.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Account.cpp.i
 .PHONY : src/Account.cpp.i
 
 src/Account.s: src/Account.cpp.s
@@ -208,7 +150,7 @@ src/Account.s: src/Account.cpp.s
 
 # target to generate assembly for a file
 src/Account.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Account.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Account.cpp.s
 .PHONY : src/Account.cpp.s
 
 src/Application.o: src/Application.cpp.o
@@ -216,7 +158,7 @@ src/Application.o: src/Application.cpp.o
 
 # target to build an object file
 src/Application.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Application.cpp.o
 .PHONY : src/Application.cpp.o
 
 src/Application.i: src/Application.cpp.i
@@ -224,7 +166,7 @@ src/Application.i: src/Application.cpp.i
 
 # target to preprocess a source file
 src/Application.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Application.cpp.i
 .PHONY : src/Application.cpp.i
 
 src/Application.s: src/Application.cpp.s
@@ -232,15 +174,39 @@ src/Application.s: src/Application.cpp.s
 
 # target to generate assembly for a file
 src/Application.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Application.cpp.s
 .PHONY : src/Application.cpp.s
+
+src/BankSystem.o: src/BankSystem.cpp.o
+.PHONY : src/BankSystem.o
+
+# target to build an object file
+src/BankSystem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o
+.PHONY : src/BankSystem.cpp.o
+
+src/BankSystem.i: src/BankSystem.cpp.i
+.PHONY : src/BankSystem.i
+
+# target to preprocess a source file
+src/BankSystem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i
+.PHONY : src/BankSystem.cpp.i
+
+src/BankSystem.s: src/BankSystem.cpp.s
+.PHONY : src/BankSystem.s
+
+# target to generate assembly for a file
+src/BankSystem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s
+.PHONY : src/BankSystem.cpp.s
 
 src/Database.o: src/Database.cpp.o
 .PHONY : src/Database.o
 
 # target to build an object file
 src/Database.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Database.cpp.o
 .PHONY : src/Database.cpp.o
 
 src/Database.i: src/Database.cpp.i
@@ -248,7 +214,7 @@ src/Database.i: src/Database.cpp.i
 
 # target to preprocess a source file
 src/Database.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Database.cpp.i
 .PHONY : src/Database.cpp.i
 
 src/Database.s: src/Database.cpp.s
@@ -256,15 +222,63 @@ src/Database.s: src/Database.cpp.s
 
 # target to generate assembly for a file
 src/Database.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Database.cpp.s
 .PHONY : src/Database.cpp.s
+
+src/Loan.o: src/Loan.cpp.o
+.PHONY : src/Loan.o
+
+# target to build an object file
+src/Loan.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Loan.cpp.o
+.PHONY : src/Loan.cpp.o
+
+src/Loan.i: src/Loan.cpp.i
+.PHONY : src/Loan.i
+
+# target to preprocess a source file
+src/Loan.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Loan.cpp.i
+.PHONY : src/Loan.cpp.i
+
+src/Loan.s: src/Loan.cpp.s
+.PHONY : src/Loan.s
+
+# target to generate assembly for a file
+src/Loan.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Loan.cpp.s
+.PHONY : src/Loan.cpp.s
+
+src/Transaction.o: src/Transaction.cpp.o
+.PHONY : src/Transaction.o
+
+# target to build an object file
+src/Transaction.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Transaction.cpp.o
+.PHONY : src/Transaction.cpp.o
+
+src/Transaction.i: src/Transaction.cpp.i
+.PHONY : src/Transaction.i
+
+# target to preprocess a source file
+src/Transaction.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Transaction.cpp.i
+.PHONY : src/Transaction.cpp.i
+
+src/Transaction.s: src/Transaction.cpp.s
+.PHONY : src/Transaction.s
+
+# target to generate assembly for a file
+src/Transaction.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/Transaction.cpp.s
+.PHONY : src/Transaction.cpp.s
 
 src/User.o: src/User.cpp.o
 .PHONY : src/User.o
 
 # target to build an object file
 src/User.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/User.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/User.cpp.o
 .PHONY : src/User.cpp.o
 
 src/User.i: src/User.cpp.i
@@ -272,7 +286,7 @@ src/User.i: src/User.cpp.i
 
 # target to preprocess a source file
 src/User.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/User.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/User.cpp.i
 .PHONY : src/User.cpp.i
 
 src/User.s: src/User.cpp.s
@@ -280,7 +294,7 @@ src/User.s: src/User.cpp.s
 
 # target to generate assembly for a file
 src/User.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/User.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/User.cpp.s
 .PHONY : src/User.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -288,7 +302,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -296,7 +310,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -304,7 +318,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -314,22 +328,26 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... ImGui-SFML"
-	@echo "... SimpleBankSystem"
+	@echo "... WiseVault"
 	@echo "... src/Account.o"
 	@echo "... src/Account.i"
 	@echo "... src/Account.s"
 	@echo "... src/Application.o"
 	@echo "... src/Application.i"
 	@echo "... src/Application.s"
+	@echo "... src/BankSystem.o"
+	@echo "... src/BankSystem.i"
+	@echo "... src/BankSystem.s"
 	@echo "... src/Database.o"
 	@echo "... src/Database.i"
 	@echo "... src/Database.s"
+	@echo "... src/Loan.o"
+	@echo "... src/Loan.i"
+	@echo "... src/Loan.s"
+	@echo "... src/Transaction.o"
+	@echo "... src/Transaction.i"
+	@echo "... src/Transaction.s"
 	@echo "... src/User.o"
 	@echo "... src/User.i"
 	@echo "... src/User.s"

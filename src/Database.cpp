@@ -1,189 +1,332 @@
 #include "Database.hpp"
-#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <cctype>
 
-Database::Database(const std::string& path) : db(nullptr), dbPath(path) {
-    int result = sqlite3_open(path.c_str(), &db);
-    if (result != SQLITE_OK) {
-        std::cerr << "Error opening database: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
-        db = nullptr;
-    } else {
-        createTables();
-    }
+Database::Database(const std::string& usersFile,
+                   const std::string& accountsFile,
+                   const std::string& transactionsFile,
+                   const std::string& loansFile)
+    : usersFile(usersFile),
+      accountsFile(accountsFile),
+      transactionsFile(transactionsFile),
+      loansFile(loansFile) {}
+
+std::string Database::trim(const std::string& s) {
+    size_t i = 0;
+    while (i < s.size() && std::isspace((unsigned char)s[i])) i++;
+    size_t j = s.size();
+    while (j > i && std::isspace((unsigned char)s[j - 1])) j--;
+    return s.substr(i, j - i);
 }
 
-Database::~Database() {
-    if (db) {
-        sqlite3_close(db);
-    }
+std::vector<std::string> Database::split(const std::string& s, char delim) {
+    std::vector<std::string> parts;
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) parts.push_back(item);
+    return parts;
 }
 
-bool Database::executeSQL(const std::string& sql) {
-    char* errorMsg = nullptr;
-    int result = sqlite3_exec(db, sql.c_str(), nullptr, nullptr, &errorMsg);
-    if (result != SQLITE_OK) {
-        std::cerr << "SQL Error: " << errorMsg << std::endl;
-        sqlite3_free(errorMsg);
-        return false;
+std::vector<std::string> Database::readAllLines(const std::string& path) const {
+    std::vector<std::string> lines;
+    std::ifstream fin(path);
+    if (!fin.is_open()) return lines;
+
+    std::string line;
+    while (std::getline(fin, line)) {
+        line = trim(line);
+        if (!line.empty()) lines.push_back(line);
     }
+    return lines;
+}
+
+bool Database::writeAllLines(const std::string& path, const std::vector<std::string>& lines) const {
+    std::ofstream fout(path, std::ios::trunc);
+    if (!fout.is_open()) return false;
+    for (const auto& l : lines) fout << l << "\n";
     return true;
 }
 
-void Database::createTables() {
-    // Just two simple tables: users and accounts
-    executeSQL(
-        "CREATE TABLE IF NOT EXISTS users ("
-        "   id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "   username TEXT UNIQUE NOT NULL,"
-        "   password TEXT NOT NULL,"
-        "   full_name TEXT NOT NULL"
-        ");"
-    );
+bool Database::appendLine(const std::string& path, const std::string& line) const {
+    std::ofstream fout(path, std::ios::app);
+    if (!fout.is_open()) return false;
+    fout << line << "\n";
+    return true;
+}
 
-    executeSQL(
-        "CREATE TABLE IF NOT EXISTS accounts ("
-        "   id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "   user_id INTEGER NOT NULL,"
-        "   account_number TEXT UNIQUE NOT NULL,"
-        "   account_type TEXT NOT NULL,"
-        "   balance REAL DEFAULT 0.0,"
-        "   FOREIGN KEY (user_id) REFERENCES users(id)"
-        ");"
-    );
+int Database::getNextIdFromFile(const std::string& path) const {
+    auto lines = readAllLines(path);
+    int maxId = 0;
+    for (const auto& l : lines) {
+        auto parts = split(l, '|');
+        if (parts.empty()) continue;
+        try {
+            int id = std::stoi(parts[0]);
+            if (id > maxId) maxId = id;
+        } catch (...) {
+        }
+    }
+    return maxId + 1;
 }
 
 bool Database::addUser(User& user) {
-    sqlite3_stmt* stmt;
-    const char* sql = "INSERT INTO users (username, password, full_name) VALUES (?, ?, ?);";
-
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK)
+    if (getUser(user.getUsername()) != nullptr) {
         return false;
-
-    sqlite3_bind_text(stmt, 1, user.getUsername().c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 2, user.getPassword().c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, user.getFullName().c_str(), -1, SQLITE_TRANSIENT);
-
-    int result = sqlite3_step(stmt);
-    sqlite3_finalize(stmt);
-
-    if (result == SQLITE_DONE) {
-        user.setId(static_cast<int>(sqlite3_last_insert_rowid(db)));
-        return true;
     }
-    return false;
+
+    int newId = getNextIdFromFile(usersFile);
+    user.setId(newId);
+
+    std::ostringstream out;
+    out << user.getId() << "|"
+        << user.getUsername() << "|"
+        << user.getPassword() << "|"
+        << user.getFullName() << "|"
+        << user.getRole() << "|"
+        << user.getMobile() << "|"
+        << user.getEmail() << "|"
+        << user.getAddress() << "|"
+        << user.getAadhaar();
+
+    return appendLine(usersFile, out.str());
 }
 
-// Returns a new User* - caller is responsible for deleting it
-User* Database::getUser(const std::string& username) {
-    sqlite3_stmt* stmt;
-    const char* sql = "SELECT id, username, password, full_name FROM users WHERE username = ?;";
+User* Database::getUser(const std::string& username) const {
+    auto lines = readAllLines(usersFile);
+    for (const auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 9) continue;
+        if (p[1] != username) continue;
 
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK)
-        return nullptr;
-
-    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_TRANSIENT);
-
-    if (sqlite3_step(stmt) == SQLITE_ROW) {
-        User* user = new User();
-        user->setId(sqlite3_column_int(stmt, 0));
-        user->setUsername(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
-        user->setPassword(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2)));
-        user->setFullName(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3)));
-        sqlite3_finalize(stmt);
-        return user;
+        User* u = new User(p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]);
+        try { u->setId(std::stoi(p[0])); } catch (...) { u->setId(0); }
+        return u;
     }
-
-    sqlite3_finalize(stmt);
     return nullptr;
 }
 
-bool Database::userExists(const std::string& username) {
-    sqlite3_stmt* stmt;
-    const char* sql = "SELECT COUNT(*) FROM users WHERE username = ?;";
-
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK)
-        return false;
-
-    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_TRANSIENT);
-
-    bool exists = false;
-    if (sqlite3_step(stmt) == SQLITE_ROW) {
-        exists = sqlite3_column_int(stmt, 0) > 0;
+std::vector<User*> Database::getAllUsers() const {
+    std::vector<User*> out;
+    auto lines = readAllLines(usersFile);
+    for (const auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 9) continue;
+        User* u = new User(p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]);
+        try { u->setId(std::stoi(p[0])); } catch (...) { u->setId(0); }
+        out.push_back(u);
     }
-
-    sqlite3_finalize(stmt);
-    return exists;
+    return out;
 }
 
 bool Database::addAccount(Account& account) {
-    sqlite3_stmt* stmt;
-    const char* sql = "INSERT INTO accounts (user_id, account_number, account_type, balance) "
-                      "VALUES (?, ?, ?, ?);";
+    int newId = getNextIdFromFile(accountsFile);
+    account.setId(newId);
 
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK)
-        return false;
+    std::ostringstream accNo;
+    accNo << "AC" << std::setw(6) << std::setfill('0') << newId;
+    account.setAccountNumber(accNo.str());
 
-    sqlite3_bind_int(stmt, 1, account.getUserId());
-    sqlite3_bind_text(stmt, 2, account.getAccountNumber().c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, account.getAccountType().c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_double(stmt, 4, account.getBalance());
+    std::ostringstream out;
+    out << account.getId() << "|"
+        << account.getUserId() << "|"
+        << account.getAccountNumber() << "|"
+        << account.getAccountType() << "|"
+        << std::fixed << std::setprecision(2) << account.getBalance();
 
-    int result = sqlite3_step(stmt);
-    sqlite3_finalize(stmt);
-
-    if (result == SQLITE_DONE) {
-        account.setId(static_cast<int>(sqlite3_last_insert_rowid(db)));
-        return true;
-    }
-    return false;
+    return appendLine(accountsFile, out.str());
 }
 
-// Returns new'd Account* pointers - caller must delete them
-std::vector<Account*> Database::getUserAccounts(int userId) {
-    std::vector<Account*> accounts;
+std::vector<Account*> Database::getUserAccounts(const User& user) const {
+    std::vector<Account*> out;
+    auto lines = readAllLines(accountsFile);
 
-    sqlite3_stmt* stmt;
-    const char* sql = "SELECT id, account_number, account_type, balance "
-                      "FROM accounts WHERE user_id = ?;";
+    for (const auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 5) continue;
 
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK)
-        return accounts;
+        int accId = 0;
+        int uId = 0;
+        double bal = 0.0;
 
-    sqlite3_bind_int(stmt, 1, userId);
+        try { accId = std::stoi(p[0]); } catch (...) { accId = 0; }
+        try { uId = std::stoi(p[1]); } catch (...) { uId = 0; }
+        try { bal = std::stod(p[4]); } catch (...) { bal = 0.0; }
 
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string type = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        if (uId != user.getId()) continue;
 
-        Account* account = nullptr;
-        if (type == "SAVINGS") {
-            account = new SavingsAccount(userId);
-        } else {
-            account = new CurrentAccount(userId);
-        }
+        const std::string& accNo = p[2];
+        const std::string& type = p[3];
 
-        account->setId(sqlite3_column_int(stmt, 0));
-        account->setAccountNumber(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
-        account->setBalance(sqlite3_column_double(stmt, 3));
+        Account* a = nullptr;
+        if (type == "SAVINGS") a = new SavingsAccount(user.getId(), user.getUsername(), user.getFullName());
+        else if (type == "FD") a = new FixedDepositAccount(user.getId(), user.getUsername(), user.getFullName());
+        else a = new CurrentAccount(user.getId(), user.getUsername(), user.getFullName());
 
-        accounts.push_back(account);
+        a->setId(accId);
+        a->setAccountNumber(accNo);
+        a->setBalance(bal);
+
+        out.push_back(a);
     }
 
-    sqlite3_finalize(stmt);
-    return accounts;
+    return out;
 }
 
 bool Database::updateBalance(int accountId, double newBalance) {
-    sqlite3_stmt* stmt;
-    const char* sql = "UPDATE accounts SET balance = ? WHERE id = ?;";
+    auto lines = readAllLines(accountsFile);
+    bool updated = false;
 
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK)
-        return false;
+    for (auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 5) continue;
 
-    sqlite3_bind_double(stmt, 1, newBalance);
-    sqlite3_bind_int(stmt, 2, accountId);
+        int accId = 0;
+        try { accId = std::stoi(p[0]); } catch (...) { accId = 0; }
 
-    int result = sqlite3_step(stmt);
-    sqlite3_finalize(stmt);
+        if (accId == accountId) {
+            std::ostringstream out;
+            out << p[0] << "|" << p[1] << "|" << p[2] << "|" << p[3] << "|"
+                << std::fixed << std::setprecision(2) << newBalance;
+            l = out.str();
+            updated = true;
+            break;
+        }
+    }
 
-    return result == SQLITE_DONE;
+    if (!updated) return false;
+    return writeAllLines(accountsFile, lines);
+}
+
+bool Database::addTransaction(Transaction& t) {
+    int newId = getNextIdFromFile(transactionsFile);
+    t.setId(newId);
+
+    std::ostringstream out;
+    out << t.getId() << "|"
+        << t.getAccountId() << "|"
+        << t.getType() << "|"
+        << std::fixed << std::setprecision(2) << t.getAmount() << "|"
+        << t.getDateTime();
+
+    return appendLine(transactionsFile, out.str());
+}
+
+std::vector<Transaction*> Database::getAccountTransactions(int accountId) const {
+    std::vector<Transaction*> out;
+    auto lines = readAllLines(transactionsFile);
+
+    for (const auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 5) continue;
+
+        int txId = 0;
+        int accId = 0;
+        double amt = 0.0;
+
+        try { txId = std::stoi(p[0]); } catch (...) { txId = 0; }
+        try { accId = std::stoi(p[1]); } catch (...) { accId = 0; }
+        try { amt = std::stod(p[3]); } catch (...) { amt = 0.0; }
+
+        if (accId != accountId) continue;
+
+        Transaction* t = new Transaction(accId, p[2], amt, p[4]);
+        t->setId(txId);
+        out.push_back(t);
+    }
+
+    return out;
+}
+
+bool Database::addLoan(Loan& l) {
+    int newId = getNextIdFromFile(loansFile);
+    l.setId(newId);
+
+    std::ostringstream out;
+    out << l.getId() << "|"
+        << l.getUserId() << "|"
+        << std::fixed << std::setprecision(2) << l.getAmount() << "|"
+        << std::fixed << std::setprecision(2) << l.getInterestRate() << "|"
+        << l.getStatus();
+
+    return appendLine(loansFile, out.str());
+}
+
+std::vector<Loan*> Database::getUserLoans(int userId) const {
+    std::vector<Loan*> out;
+    auto lines = readAllLines(loansFile);
+
+    for (const auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 5) continue;
+
+        int loanId = 0;
+        int uId = 0;
+        double amt = 0.0;
+        double rate = 0.0;
+
+        try { loanId = std::stoi(p[0]); } catch (...) { loanId = 0; }
+        try { uId = std::stoi(p[1]); } catch (...) { uId = 0; }
+        try { amt = std::stod(p[2]); } catch (...) { amt = 0.0; }
+        try { rate = std::stod(p[3]); } catch (...) { rate = 0.0; }
+
+        if (uId != userId) continue;
+
+        Loan* loan = new Loan(uId, amt, rate, p[4]);
+        loan->setId(loanId);
+        out.push_back(loan);
+    }
+
+    return out;
+}
+
+std::vector<Loan*> Database::getAllLoans() const {
+    std::vector<Loan*> out;
+    auto lines = readAllLines(loansFile);
+
+    for (const auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 5) continue;
+
+        int loanId = 0;
+        int uId = 0;
+        double amt = 0.0;
+        double rate = 0.0;
+
+        try { loanId = std::stoi(p[0]); } catch (...) { loanId = 0; }
+        try { uId = std::stoi(p[1]); } catch (...) { uId = 0; }
+        try { amt = std::stod(p[2]); } catch (...) { amt = 0.0; }
+        try { rate = std::stod(p[3]); } catch (...) { rate = 0.0; }
+
+        Loan* loan = new Loan(uId, amt, rate, p[4]);
+        loan->setId(loanId);
+        out.push_back(loan);
+    }
+
+    return out;
+}
+
+bool Database::updateLoanStatus(int loanId, const std::string& status) {
+    auto lines = readAllLines(loansFile);
+    bool updated = false;
+
+    for (auto& l : lines) {
+        auto p = split(l, '|');
+        if (p.size() < 5) continue;
+
+        int id = 0;
+        try { id = std::stoi(p[0]); } catch (...) { id = 0; }
+
+        if (id == loanId) {
+            std::ostringstream out;
+            out << p[0] << "|" << p[1] << "|" << p[2] << "|" << p[3] << "|" << status;
+            l = out.str();
+            updated = true;
+            break;
+        }
+    }
+
+    if (!updated) return false;
+    return writeAllLines(loansFile, lines);
 }

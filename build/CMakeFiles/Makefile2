@@ -63,85 +63,42 @@ CMAKE_BINARY_DIR = /home/shreyashh/Project/genesis/WiseVault/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/SimpleBankSystem.dir/all
-all: _deps/imgui-sfml-build/all
+all: CMakeFiles/WiseVault.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall: _deps/imgui-sfml-build/preinstall
+preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/SimpleBankSystem.dir/clean
-clean: _deps/imgui-sfml-build/clean
+clean: CMakeFiles/WiseVault.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory _deps/imgui-sfml-build
-
-# Recursive "all" directory target.
-_deps/imgui-sfml-build/all: _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/all
-.PHONY : _deps/imgui-sfml-build/all
-
-# Recursive "preinstall" directory target.
-_deps/imgui-sfml-build/preinstall:
-.PHONY : _deps/imgui-sfml-build/preinstall
-
-# Recursive "clean" directory target.
-_deps/imgui-sfml-build/clean: _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/clean
-.PHONY : _deps/imgui-sfml-build/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/SimpleBankSystem.dir
+# Target rules for target CMakeFiles/WiseVault.dir
 
 # All Build rule for target.
-CMakeFiles/SimpleBankSystem.dir/all: _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=9,10,11,12,13,14 "Built target SimpleBankSystem"
-.PHONY : CMakeFiles/SimpleBankSystem.dir/all
+CMakeFiles/WiseVault.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target WiseVault"
+.PHONY : CMakeFiles/WiseVault.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/SimpleBankSystem.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles 14
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SimpleBankSystem.dir/all
+CMakeFiles/WiseVault.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles 9
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/WiseVault.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles 0
-.PHONY : CMakeFiles/SimpleBankSystem.dir/rule
+.PHONY : CMakeFiles/WiseVault.dir/rule
 
 # Convenience name for target.
-SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/rule
-.PHONY : SimpleBankSystem
+WiseVault: CMakeFiles/WiseVault.dir/rule
+.PHONY : WiseVault
 
 # clean rule for target.
-CMakeFiles/SimpleBankSystem.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SimpleBankSystem.dir/build.make CMakeFiles/SimpleBankSystem.dir/clean
-.PHONY : CMakeFiles/SimpleBankSystem.dir/clean
-
-#=============================================================================
-# Target rules for target _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir
-
-# All Build rule for target.
-_deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/all:
-	$(MAKE) $(MAKESILENT) -f _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/build.make _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/depend
-	$(MAKE) $(MAKESILENT) -f _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/build.make _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target ImGui-SFML"
-.PHONY : _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/all
-
-# Build rule for subdir invocation for target.
-_deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles 8
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles 0
-.PHONY : _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/rule
-
-# Convenience name for target.
-ImGui-SFML: _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/rule
-.PHONY : ImGui-SFML
-
-# clean rule for target.
-_deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/clean:
-	$(MAKE) $(MAKESILENT) -f _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/build.make _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/clean
-.PHONY : _deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/clean
+CMakeFiles/WiseVault.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WiseVault.dir/build.make CMakeFiles/WiseVault.dir/clean
+.PHONY : CMakeFiles/WiseVault.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

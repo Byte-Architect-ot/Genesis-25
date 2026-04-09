@@ -111,10 +111,38 @@ CMakeFiles/SimpleBankSystem.dir/src/User.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SimpleBankSystem.dir/src/User.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/User.cpp -o CMakeFiles/SimpleBankSystem.dir/src/User.cpp.s
 
+CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o: CMakeFiles/SimpleBankSystem.dir/flags.make
+CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Transaction.cpp
+CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o: CMakeFiles/SimpleBankSystem.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o -MF CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o.d -o CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Transaction.cpp
+
+CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/Transaction.cpp > CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.i
+
+CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Transaction.cpp -o CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.s
+
+CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o: CMakeFiles/SimpleBankSystem.dir/flags.make
+CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp
+CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o: CMakeFiles/SimpleBankSystem.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o -MF CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o.d -o CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp
+
+CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp > CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.i
+
+CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp -o CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.s
+
 CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o: CMakeFiles/SimpleBankSystem.dir/flags.make
 CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp
 CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o: CMakeFiles/SimpleBankSystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o -MF CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o.d -o CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp
 
 CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.i: cmake_force
@@ -128,7 +156,7 @@ CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.s: cmake_force
 CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o: CMakeFiles/SimpleBankSystem.dir/flags.make
 CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp
 CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o: CMakeFiles/SimpleBankSystem.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o -MF CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o.d -o CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp
 
 CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.i: cmake_force
@@ -144,6 +172,8 @@ SimpleBankSystem_OBJECTS = \
 "CMakeFiles/SimpleBankSystem.dir/src/main.cpp.o" \
 "CMakeFiles/SimpleBankSystem.dir/src/Account.cpp.o" \
 "CMakeFiles/SimpleBankSystem.dir/src/User.cpp.o" \
+"CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o" \
+"CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o" \
 "CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o" \
 "CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o"
 
@@ -153,17 +183,14 @@ SimpleBankSystem_EXTERNAL_OBJECTS =
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/main.cpp.o
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/Account.cpp.o
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/User.cpp.o
+SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/Transaction.cpp.o
+SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/Loan.cpp.o
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/src/Application.cpp.o
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/build.make
-SimpleBankSystem: _deps/imgui-sfml-build/libImGui-SFML.a
 SimpleBankSystem: /usr/lib/x86_64-linux-gnu/libsqlite3.so
-SimpleBankSystem: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
-SimpleBankSystem: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
-SimpleBankSystem: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
-SimpleBankSystem: /usr/lib/x86_64-linux-gnu/libGL.so
 SimpleBankSystem: CMakeFiles/SimpleBankSystem.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable SimpleBankSystem"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable SimpleBankSystem"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SimpleBankSystem.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

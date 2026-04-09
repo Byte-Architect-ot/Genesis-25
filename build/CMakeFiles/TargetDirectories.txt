@@ -1,14 +1,3 @@
-/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/SimpleBankSystem.dir
+/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/WiseVault.dir
 /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/edit_cache.dir
 /home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/rebuild_cache.dir
-/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/list_install_components.dir
-/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/install.dir
-/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/install/local.dir
-/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles/install/strip.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/edit_cache.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/rebuild_cache.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/list_install_components.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/install.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/install/local.dir
-/home/shreyashh/Project/genesis/WiseVault/build/_deps/imgui-sfml-build/CMakeFiles/install/strip.dir

@@ -122,6 +122,8 @@ CMakeFiles/SimpleBankSystem.dir/src/Database.cpp.o: \
  /usr/include/c++/13/bits/vector.tcc /usr/include/sqlite3.h \
  /home/shreyashh/Project/genesis/WiseVault/include/User.hpp \
  /home/shreyashh/Project/genesis/WiseVault/include/Account.hpp \
+ /home/shreyashh/Project/genesis/WiseVault/include/Transaction.hpp \
+ /home/shreyashh/Project/genesis/WiseVault/include/Loan.hpp \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
  /usr/include/c++/13/ios /usr/include/c++/13/exception \
  /usr/include/c++/13/bits/exception_ptr.h \

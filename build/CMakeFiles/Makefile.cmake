@@ -11,13 +11,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.28.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.28.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.3/CMakeSystem.cmake"
-  "_deps/imgui-sfml-src/CMakeLists.txt"
-  "_deps/imgui-sfml-src/cmake/FindImGui.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfig.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfigDependencies.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLConfigVersion.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLSharedTargets-none.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/SFML/SFMLSharedTargets.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake"
@@ -30,15 +23,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.28/Modules/Compiler/GNU-C.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/GNU.cmake"
-  "/usr/share/cmake-3.28/Modules/ExternalProject/shared_internal_commands.cmake"
-  "/usr/share/cmake-3.28/Modules/FetchContent.cmake"
-  "/usr/share/cmake-3.28/Modules/FetchContent/CMakeLists.cmake.in"
-  "/usr/share/cmake-3.28/Modules/FindGit.cmake"
-  "/usr/share/cmake-3.28/Modules/FindOpenGL.cmake"
-  "/usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake"
-  "/usr/share/cmake-3.28/Modules/FindPackageMessage.cmake"
-  "/usr/share/cmake-3.28/Modules/FindSQLite3.cmake"
-  "/usr/share/cmake-3.28/Modules/GNUInstallDirs.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake"
@@ -55,14 +39,10 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "_deps/imgui-subbuild/CMakeLists.txt"
-  "_deps/imgui-sfml-subbuild/CMakeLists.txt"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "_deps/imgui-sfml-build/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/SimpleBankSystem.dir/DependInfo.cmake"
-  "_deps/imgui-sfml-build/CMakeFiles/ImGui-SFML.dir/DependInfo.cmake"
+  "CMakeFiles/WiseVault.dir/DependInfo.cmake"
   )

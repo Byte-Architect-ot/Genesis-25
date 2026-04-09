@@ -1,35 +1,51 @@
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
 
-#include <string>
-#include <vector>
-#include <sqlite3.h>
 #include "User.hpp"
 #include "Account.hpp"
+#include "Transaction.hpp"
+#include "Loan.hpp"
+#include <string>
+#include <vector>
 
 class Database {
 private:
-    sqlite3* db;
-    std::string dbPath;
+    std::string usersFile;
+    std::string accountsFile;
+    std::string transactionsFile;
+    std::string loansFile;
 
-    bool executeSQL(const std::string& sql);
-    void createTables();
+private:
+    static std::string trim(const std::string& s);
+    static std::vector<std::string> split(const std::string& s, char delim);
+
+    int getNextIdFromFile(const std::string& path) const;
+
+    std::vector<std::string> readAllLines(const std::string& path) const;
+    bool writeAllLines(const std::string& path, const std::vector<std::string>& lines) const;
+    bool appendLine(const std::string& path, const std::string& line) const;
 
 public:
-    Database(const std::string& path = "data/bank.db");
-    ~Database();
+    Database(const std::string& usersFile = "data/users.txt",
+             const std::string& accountsFile = "data/accounts.txt",
+             const std::string& transactionsFile = "data/transactions.txt",
+             const std::string& loansFile = "data/loans.txt");
 
-    // User operations
     bool addUser(User& user);
-    User* getUser(const std::string& username); // Caller must delete
-    bool userExists(const std::string& username);
+    User* getUser(const std::string& username) const;
+    std::vector<User*> getAllUsers() const;
 
-    // Account operations - returns new'd pointers, caller must delete
     bool addAccount(Account& account);
-    std::vector<Account*> getUserAccounts(int userId);
+    std::vector<Account*> getUserAccounts(const User& user) const;
     bool updateBalance(int accountId, double newBalance);
 
-    bool isConnected() const { return db != nullptr; }
+    bool addTransaction(Transaction& t);
+    std::vector<Transaction*> getAccountTransactions(int accountId) const;
+
+    bool addLoan(Loan& l);
+    std::vector<Loan*> getUserLoans(int userId) const;
+    std::vector<Loan*> getAllLoans() const;
+    bool updateLoanStatus(int loanId, const std::string& status);
 };
 
 #endif
