@@ -4,48 +4,69 @@
 #include "User.hpp"
 #include "Account.hpp"
 #include "Transaction.hpp"
-#include "Loan.hpp"
+#include <sqlite3.h>
 #include <string>
 #include <vector>
+#include <memory>
 
 class Database {
 private:
-    std::string usersFile;
-    std::string accountsFile;
-    std::string transactionsFile;
-    std::string loansFile;
+    sqlite3* db;
+    std::string dbPath;
 
 private:
-    static std::string trim(const std::string& s);
-    static std::vector<std::string> split(const std::string& s, char delim);
+    bool exec(const std::string& sql);
+    bool prepare(const std::string& sql, sqlite3_stmt** stmt) const;
 
-    int getNextIdFromFile(const std::string& path) const;
+    bool ensureTables();
+    bool ensureAdminUser();
 
-    std::vector<std::string> readAllLines(const std::string& path) const;
-    bool writeAllLines(const std::string& path, const std::vector<std::string>& lines) const;
-    bool appendLine(const std::string& path, const std::string& line) const;
+    static std::string nowDateTime();
+    static std::string sha256Hex(const std::string& s);
+
+    int getNextAccountId() const;
+    std::string makeAccountNumberFromId(int id) const;
+
+    bool insertTransaction(const std::string& type,
+                           int fromAccountId,
+                           int toAccountId,
+                           double amount,
+                           const std::string& timestamp);
 
 public:
-    Database(const std::string& usersFile = "data/users.txt",
-             const std::string& accountsFile = "data/accounts.txt",
-             const std::string& transactionsFile = "data/transactions.txt",
-             const std::string& loansFile = "data/loans.txt");
+    Database(const std::string& path = "data/bank.db");
+    ~Database();
 
-    bool addUser(User& user);
-    User* getUser(const std::string& username) const;
-    std::vector<User*> getAllUsers() const;
+    Database(const Database&) = delete;
+    Database& operator=(const Database&) = delete;
 
-    bool addAccount(Account& account);
-    std::vector<Account*> getUserAccounts(const User& user) const;
-    bool updateBalance(int accountId, double newBalance);
+    bool registerUser(const std::string& username,
+                      const std::string& plainPassword,
+                      const std::string& fullName,
+                      std::string& err);
 
-    bool addTransaction(Transaction& t);
-    std::vector<Transaction*> getAccountTransactions(int accountId) const;
+    bool authenticate(const std::string& username,
+                      const std::string& plainPassword,
+                      User& outUser,
+                      std::string& err) const;
 
-    bool addLoan(Loan& l);
-    std::vector<Loan*> getUserLoans(int userId) const;
-    std::vector<Loan*> getAllLoans() const;
-    bool updateLoanStatus(int loanId, const std::string& status);
+    bool createAccount(int userId,
+                       const std::string& accountType,
+                       std::string& outAccountNumber,
+                       std::string& err);
+
+    std::vector<std::unique_ptr<Account>> getAccountsForUser(int userId) const;
+    bool getAccountByNumber(const std::string& accountNumber, std::unique_ptr<Account>& out) const;
+    bool getAccountById(int accountId, std::unique_ptr<Account>& out) const;
+
+    bool deposit(int accountId, double amount, std::string& err);
+    bool withdraw(int accountId, double amount, std::string& err);
+    bool transfer(int fromAccountId, const std::string& toAccountNumber, double amount, std::string& err);
+
+    std::vector<Transaction> getTransactionsForAccount(int accountId) const;
+
+    std::vector<User> getAllUsers() const;
+    std::vector<std::unique_ptr<Account>> getAllAccounts() const;
 };
 
 #endif

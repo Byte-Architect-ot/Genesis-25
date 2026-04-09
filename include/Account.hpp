@@ -20,10 +20,11 @@ public:
 
     virtual ~Account() = default;
 
-    int getId() const;
-    void setId(int newId);
+    int getAccountId() const;
+    void setAccountId(int v);
 
     int getUserId() const;
+    void setUserId(int v);
 
     const std::string& getAccountNumber() const;
     void setAccountNumber(const std::string& v);
@@ -37,27 +38,22 @@ public:
     bool withdraw(double amount);
 
     virtual bool canWithdraw(double amount) const = 0;
-    virtual void calculateInterest() {}
 };
 
 class SavingsAccount : public Account {
 public:
     SavingsAccount(int userId, const std::string& username, const std::string& fullName);
     bool canWithdraw(double amount) const override;
-    void calculateInterest() override;
 };
 
 class CurrentAccount : public Account {
-public:
-    CurrentAccount(int userId, const std::string& username, const std::string& fullName);
-    bool canWithdraw(double amount) const override;
-};
+private:
+    double overdraftLimit;
 
-class FixedDepositAccount : public Account {
 public:
-    FixedDepositAccount(int userId, const std::string& username, const std::string& fullName);
+    CurrentAccount(int userId, const std::string& username, const std::string& fullName, double overdraftLimit = 5000.0);
     bool canWithdraw(double amount) const override;
-    void calculateInterest() override;
+    double getOverdraftLimit() const;
 };
 
 #endif

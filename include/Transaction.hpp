@@ -6,22 +6,38 @@
 class Transaction {
 private:
     int id;
-    int accountId;
     std::string type;
+    int fromAccountId;
+    int toAccountId;
     double amount;
-    std::string dateTime;
+    std::string timestamp;
 
 public:
     Transaction();
-    Transaction(int accountId, const std::string& type, double amount, const std::string& dateTime);
+    Transaction(int id,
+                const std::string& type,
+                int fromAccountId,
+                int toAccountId,
+                double amount,
+                const std::string& timestamp);
 
     int getId() const;
-    void setId(int newId);
+    void setId(int v);
 
-    int getAccountId() const;
     const std::string& getType() const;
+    void setType(const std::string& v);
+
+    int getFromAccountId() const;
+    void setFromAccountId(int v);
+
+    int getToAccountId() const;
+    void setToAccountId(int v);
+
     double getAmount() const;
-    const std::string& getDateTime() const;
+    void setAmount(double v);
+
+    const std::string& getTimestamp() const;
+    void setTimestamp(const std::string& v);
 };
 
 #endif

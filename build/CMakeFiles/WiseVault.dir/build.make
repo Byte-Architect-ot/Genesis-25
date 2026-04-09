@@ -83,10 +83,52 @@ CMakeFiles/WiseVault.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/main.cpp -o CMakeFiles/WiseVault.dir/src/main.cpp.s
 
+CMakeFiles/WiseVault.dir/src/Application.cpp.o: CMakeFiles/WiseVault.dir/flags.make
+CMakeFiles/WiseVault.dir/src/Application.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp
+CMakeFiles/WiseVault.dir/src/Application.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/WiseVault.dir/src/Application.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Application.cpp.o -MF CMakeFiles/WiseVault.dir/src/Application.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Application.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp
+
+CMakeFiles/WiseVault.dir/src/Application.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WiseVault.dir/src/Application.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp > CMakeFiles/WiseVault.dir/src/Application.cpp.i
+
+CMakeFiles/WiseVault.dir/src/Application.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/Application.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp -o CMakeFiles/WiseVault.dir/src/Application.cpp.s
+
+CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o: CMakeFiles/WiseVault.dir/flags.make
+CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp
+CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o -MF CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o.d -o CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp
+
+CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp > CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i
+
+CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp -o CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s
+
+CMakeFiles/WiseVault.dir/src/Database.cpp.o: CMakeFiles/WiseVault.dir/flags.make
+CMakeFiles/WiseVault.dir/src/Database.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp
+CMakeFiles/WiseVault.dir/src/Database.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/WiseVault.dir/src/Database.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Database.cpp.o -MF CMakeFiles/WiseVault.dir/src/Database.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Database.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp
+
+CMakeFiles/WiseVault.dir/src/Database.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WiseVault.dir/src/Database.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp > CMakeFiles/WiseVault.dir/src/Database.cpp.i
+
+CMakeFiles/WiseVault.dir/src/Database.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/Database.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp -o CMakeFiles/WiseVault.dir/src/Database.cpp.s
+
 CMakeFiles/WiseVault.dir/src/User.cpp.o: CMakeFiles/WiseVault.dir/flags.make
 CMakeFiles/WiseVault.dir/src/User.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/User.cpp
 CMakeFiles/WiseVault.dir/src/User.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/WiseVault.dir/src/User.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/WiseVault.dir/src/User.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/User.cpp.o -MF CMakeFiles/WiseVault.dir/src/User.cpp.o.d -o CMakeFiles/WiseVault.dir/src/User.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/User.cpp
 
 CMakeFiles/WiseVault.dir/src/User.cpp.i: cmake_force
@@ -100,7 +142,7 @@ CMakeFiles/WiseVault.dir/src/User.cpp.s: cmake_force
 CMakeFiles/WiseVault.dir/src/Account.cpp.o: CMakeFiles/WiseVault.dir/flags.make
 CMakeFiles/WiseVault.dir/src/Account.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Account.cpp
 CMakeFiles/WiseVault.dir/src/Account.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/WiseVault.dir/src/Account.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/WiseVault.dir/src/Account.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Account.cpp.o -MF CMakeFiles/WiseVault.dir/src/Account.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Account.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Account.cpp
 
 CMakeFiles/WiseVault.dir/src/Account.cpp.i: cmake_force
@@ -114,7 +156,7 @@ CMakeFiles/WiseVault.dir/src/Account.cpp.s: cmake_force
 CMakeFiles/WiseVault.dir/src/Transaction.cpp.o: CMakeFiles/WiseVault.dir/flags.make
 CMakeFiles/WiseVault.dir/src/Transaction.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Transaction.cpp
 CMakeFiles/WiseVault.dir/src/Transaction.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/WiseVault.dir/src/Transaction.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/WiseVault.dir/src/Transaction.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Transaction.cpp.o -MF CMakeFiles/WiseVault.dir/src/Transaction.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Transaction.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Transaction.cpp
 
 CMakeFiles/WiseVault.dir/src/Transaction.cpp.i: cmake_force
@@ -128,7 +170,7 @@ CMakeFiles/WiseVault.dir/src/Transaction.cpp.s: cmake_force
 CMakeFiles/WiseVault.dir/src/Loan.cpp.o: CMakeFiles/WiseVault.dir/flags.make
 CMakeFiles/WiseVault.dir/src/Loan.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp
 CMakeFiles/WiseVault.dir/src/Loan.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/WiseVault.dir/src/Loan.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/WiseVault.dir/src/Loan.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Loan.cpp.o -MF CMakeFiles/WiseVault.dir/src/Loan.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Loan.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp
 
 CMakeFiles/WiseVault.dir/src/Loan.cpp.i: cmake_force
@@ -139,71 +181,30 @@ CMakeFiles/WiseVault.dir/src/Loan.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/Loan.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Loan.cpp -o CMakeFiles/WiseVault.dir/src/Loan.cpp.s
 
-CMakeFiles/WiseVault.dir/src/Database.cpp.o: CMakeFiles/WiseVault.dir/flags.make
-CMakeFiles/WiseVault.dir/src/Database.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp
-CMakeFiles/WiseVault.dir/src/Database.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/WiseVault.dir/src/Database.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Database.cpp.o -MF CMakeFiles/WiseVault.dir/src/Database.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Database.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp
-
-CMakeFiles/WiseVault.dir/src/Database.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WiseVault.dir/src/Database.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp > CMakeFiles/WiseVault.dir/src/Database.cpp.i
-
-CMakeFiles/WiseVault.dir/src/Database.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/Database.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Database.cpp -o CMakeFiles/WiseVault.dir/src/Database.cpp.s
-
-CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o: CMakeFiles/WiseVault.dir/flags.make
-CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp
-CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o -MF CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o.d -o CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp
-
-CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp > CMakeFiles/WiseVault.dir/src/BankSystem.cpp.i
-
-CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/BankSystem.cpp -o CMakeFiles/WiseVault.dir/src/BankSystem.cpp.s
-
-CMakeFiles/WiseVault.dir/src/Application.cpp.o: CMakeFiles/WiseVault.dir/flags.make
-CMakeFiles/WiseVault.dir/src/Application.cpp.o: /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp
-CMakeFiles/WiseVault.dir/src/Application.cpp.o: CMakeFiles/WiseVault.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/WiseVault.dir/src/Application.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WiseVault.dir/src/Application.cpp.o -MF CMakeFiles/WiseVault.dir/src/Application.cpp.o.d -o CMakeFiles/WiseVault.dir/src/Application.cpp.o -c /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp
-
-CMakeFiles/WiseVault.dir/src/Application.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WiseVault.dir/src/Application.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp > CMakeFiles/WiseVault.dir/src/Application.cpp.i
-
-CMakeFiles/WiseVault.dir/src/Application.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WiseVault.dir/src/Application.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shreyashh/Project/genesis/WiseVault/src/Application.cpp -o CMakeFiles/WiseVault.dir/src/Application.cpp.s
-
 # Object files for target WiseVault
 WiseVault_OBJECTS = \
 "CMakeFiles/WiseVault.dir/src/main.cpp.o" \
+"CMakeFiles/WiseVault.dir/src/Application.cpp.o" \
+"CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o" \
+"CMakeFiles/WiseVault.dir/src/Database.cpp.o" \
 "CMakeFiles/WiseVault.dir/src/User.cpp.o" \
 "CMakeFiles/WiseVault.dir/src/Account.cpp.o" \
 "CMakeFiles/WiseVault.dir/src/Transaction.cpp.o" \
-"CMakeFiles/WiseVault.dir/src/Loan.cpp.o" \
-"CMakeFiles/WiseVault.dir/src/Database.cpp.o" \
-"CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o" \
-"CMakeFiles/WiseVault.dir/src/Application.cpp.o"
+"CMakeFiles/WiseVault.dir/src/Loan.cpp.o"
 
 # External object files for target WiseVault
 WiseVault_EXTERNAL_OBJECTS =
 
 WiseVault: CMakeFiles/WiseVault.dir/src/main.cpp.o
+WiseVault: CMakeFiles/WiseVault.dir/src/Application.cpp.o
+WiseVault: CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o
+WiseVault: CMakeFiles/WiseVault.dir/src/Database.cpp.o
 WiseVault: CMakeFiles/WiseVault.dir/src/User.cpp.o
 WiseVault: CMakeFiles/WiseVault.dir/src/Account.cpp.o
 WiseVault: CMakeFiles/WiseVault.dir/src/Transaction.cpp.o
 WiseVault: CMakeFiles/WiseVault.dir/src/Loan.cpp.o
-WiseVault: CMakeFiles/WiseVault.dir/src/Database.cpp.o
-WiseVault: CMakeFiles/WiseVault.dir/src/BankSystem.cpp.o
-WiseVault: CMakeFiles/WiseVault.dir/src/Application.cpp.o
 WiseVault: CMakeFiles/WiseVault.dir/build.make
+WiseVault: /usr/lib/x86_64-linux-gnu/libsqlite3.so
 WiseVault: CMakeFiles/WiseVault.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/shreyashh/Project/genesis/WiseVault/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable WiseVault"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/WiseVault.dir/link.txt --verbose=$(VERBOSE)

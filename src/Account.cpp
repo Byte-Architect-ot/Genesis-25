@@ -8,16 +8,17 @@ Account::Account(int userId,
       userId(userId),
       accountNumber(""),
       accountType(accountType),
-      balance(500.0) {
+      balance(0.0) {
     setUsername(username);
     setFullName(fullName);
     setRole("USER");
 }
 
-int Account::getId() const { return accountId; }
-void Account::setId(int newId) { accountId = newId; }
+int Account::getAccountId() const { return accountId; }
+void Account::setAccountId(int v) { accountId = v; }
 
 int Account::getUserId() const { return userId; }
+void Account::setUserId(int v) { userId = v; }
 
 const std::string& Account::getAccountNumber() const { return accountNumber; }
 void Account::setAccountNumber(const std::string& v) { accountNumber = v; }
@@ -45,26 +46,13 @@ bool SavingsAccount::canWithdraw(double amount) const {
     return amount <= balance;
 }
 
-void SavingsAccount::calculateInterest() {
-    balance += balance * 0.04;
-}
-
-CurrentAccount::CurrentAccount(int userId, const std::string& username, const std::string& fullName)
-    : Account(userId, username, fullName, "CURRENT") {}
+CurrentAccount::CurrentAccount(int userId, const std::string& username, const std::string& fullName, double overdraftLimit)
+    : Account(userId, username, fullName, "CURRENT"),
+      overdraftLimit(overdraftLimit) {}
 
 bool CurrentAccount::canWithdraw(double amount) const {
     if (amount <= 0) return false;
-    return amount <= balance;
+    return (balance - amount) >= (-overdraftLimit);
 }
 
-FixedDepositAccount::FixedDepositAccount(int userId, const std::string& username, const std::string& fullName)
-    : Account(userId, username, fullName, "FD") {}
-
-bool FixedDepositAccount::canWithdraw(double amount) const {
-    (void)amount;
-    return false;
-}
-
-void FixedDepositAccount::calculateInterest() {
-    balance += balance * 0.07;
-}
+double CurrentAccount::getOverdraftLimit() const { return overdraftLimit; }

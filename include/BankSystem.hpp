@@ -2,46 +2,41 @@
 #define BANKSYSTEM_HPP
 
 #include "Database.hpp"
-#include <string>
+#include <optional>
 
 class BankSystem {
 private:
     Database db;
-    User* currentUser;
+    std::optional<User> currentUser;
 
 private:
-    static std::string nowDateTime();
     static int readInt(const std::string& prompt, int minVal, int maxVal);
     static double readDouble(const std::string& prompt, double minVal);
-    static std::string readString(const std::string& prompt);
+    static std::string readLine(const std::string& prompt);
+    static std::string toUpper(std::string s);
 
-    static std::string normalizeRole(const std::string& r);
-
-    void startMenu();
-    void loginMenu();
-    void registerMenu();
+    void mainMenu();
+    void login();
+    void registerUser();
 
     void adminMenu();
     void userMenu();
 
     void adminViewUsers();
-    void adminViewAllLoans();
-    void adminUpdateLoan();
+    void adminViewAccounts();
+    void adminViewAccountTransactions();
 
+    void userListAccounts();
+    void userOpenAccount();
     void userDeposit();
     void userWithdraw();
-    void userViewAccounts();
-    void userViewProfile();
-    void userViewTransactions();
-    void userApplyLoan();
-    void userViewLoans();
+    void userTransfer();
+    void userTransactions();
 
-    Account* pickAccountFromUser() const;
+    bool pickUserAccount(std::unique_ptr<Account>& outAccount) const;
 
 public:
     BankSystem();
-    ~BankSystem();
-
     void run();
 };
 

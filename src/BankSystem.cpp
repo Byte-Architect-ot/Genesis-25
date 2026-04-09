@@ -1,29 +1,9 @@
 #include "BankSystem.hpp"
 #include <iostream>
 #include <limits>
-#include <ctime>
-#include <sstream>
 #include <iomanip>
 
-BankSystem::BankSystem() : db(), currentUser(nullptr) {}
-
-BankSystem::~BankSystem() {
-    delete currentUser;
-    currentUser = nullptr;
-}
-
-std::string BankSystem::nowDateTime() {
-    std::time_t t = std::time(nullptr);
-    std::tm tm{};
-#if defined(_WIN32)
-    localtime_s(&tm, &t);
-#else
-    tm = *std::localtime(&t);
-#endif
-    std::ostringstream out;
-    out << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
-    return out.str();
-}
+BankSystem::BankSystem() : db(), currentUser(std::nullopt) {}
 
 int BankSystem::readInt(const std::string& prompt, int minVal, int maxVal) {
     int x;
@@ -53,7 +33,7 @@ double BankSystem::readDouble(const std::string& prompt, double minVal) {
     }
 }
 
-std::string BankSystem::readString(const std::string& prompt) {
+std::string BankSystem::readLine(const std::string& prompt) {
     std::cout << prompt;
     std::string s;
     std::getline(std::cin, s);
@@ -65,18 +45,16 @@ std::string BankSystem::readString(const std::string& prompt) {
     return s;
 }
 
-std::string BankSystem::normalizeRole(const std::string& r) {
-    std::string out;
-    for (char c : r) out.push_back((char)std::toupper((unsigned char)c));
-    if (out != "ADMIN") return "USER";
-    return out;
+std::string BankSystem::toUpper(std::string s) {
+    for (char& c : s) c = (char)std::toupper((unsigned char)c);
+    return s;
 }
 
 void BankSystem::run() {
-    startMenu();
+    mainMenu();
 }
 
-void BankSystem::startMenu() {
+void BankSystem::mainMenu() {
     while (true) {
         std::cout << "1. Login\n";
         std::cout << "2. Register\n";
@@ -86,109 +64,84 @@ void BankSystem::startMenu() {
         if (c == 3) return;
 
         switch (c) {
-            case 1:
-                loginMenu();
-                break;
-            case 2:
-                registerMenu();
-                break;
+            case 1: login(); break;
+            case 2: registerUser(); break;
         }
     }
 }
 
-void BankSystem::loginMenu() {
-    std::string uname = readString("Username: ");
-    std::string pass = readString("Password: ");
+void BankSystem::login() {
+    std::string username = readLine("Username: ");
+    std::string password = readLine("Password: ");
 
-    if (uname == "admin" && pass == "admin") {
-        adminMenu();
+    User u;
+    std::string err;
+    if (!db.authenticate(username, password, u, err)) {
+        std::cout << err << "\n";
         return;
     }
 
-    User* u = db.getUser(uname);
-    if (!u) {
-        std::cout << "Invalid login\n";
-        return;
-    }
-    if (u->getPassword() != pass) {
-        delete u;
-        std::cout << "Invalid login\n";
-        return;
-    }
-
-    delete currentUser;
     currentUser = u;
 
-    userMenu();
+    if (currentUser->getRole() == "ADMIN") adminMenu();
+    else userMenu();
+
+    currentUser.reset();
 }
 
-void BankSystem::registerMenu() {
-    std::string uname = readString("Username: ");
-    if (uname == "admin") {
-        std::cout << "Username not allowed\n";
+void BankSystem::registerUser() {
+    std::string username = readLine("Username: ");
+    std::string password = readLine("Password: ");
+    std::string fullName = readLine("Full name: ");
+
+    std::string err;
+    if (!db.registerUser(username, password, fullName, err)) {
+        std::cout << err << "\n";
         return;
     }
 
-    User* existing = db.getUser(uname);
-    if (existing) {
-        delete existing;
-        std::cout << "Username already exists\n";
-        return;
-    }
-
-    std::string pass = readString("Password: ");
-    std::string name = readString("Full name: ");
-    std::string mobile = readString("Mobile: ");
-    std::string email = readString("Email: ");
-    std::string address = readString("Address: ");
-    std::string aadhaar = readString("Aadhaar: ");
-    std::string role = "USER";
-
-    User newUser(uname, pass, name, role, mobile, email, address, aadhaar);
-    if (!db.addUser(newUser)) {
-        std::cout << "Registration failed\n";
-        return;
-    }
-
-    std::cout << "Account type\n";
-    std::cout << "1. Savings\n";
-    std::cout << "2. Current\n";
-    std::cout << "3. Fixed deposit\n";
-    int t = readInt("Choice: ", 1, 3);
-
-    Account* acc = nullptr;
-    if (t == 1) acc = new SavingsAccount(newUser.getId(), newUser.getUsername(), newUser.getFullName());
-    else if (t == 2) acc = new CurrentAccount(newUser.getId(), newUser.getUsername(), newUser.getFullName());
-    else acc = new FixedDepositAccount(newUser.getId(), newUser.getUsername(), newUser.getFullName());
-
-    bool ok = db.addAccount(*acc);
-    if (!ok) {
-        delete acc;
-        std::cout << "Account creation failed\n";
-        return;
-    }
-
-    std::cout << "Registered\n";
-    std::cout << "Account number: " << acc->getAccountNumber() << "\n";
-    std::cout << "Opening balance: " << std::fixed << std::setprecision(2) << acc->getBalance() << "\n";
-
-    delete acc;
+    std::cout << "User registered\n";
+    std::cout << "Create first account\n";
+    userOpenAccount();
 }
 
 void BankSystem::adminMenu() {
     while (true) {
         std::cout << "1. View users\n";
-        std::cout << "2. View all loans\n";
-        std::cout << "3. Update loan status\n";
+        std::cout << "2. View accounts\n";
+        std::cout << "3. View account transactions\n";
         std::cout << "4. Logout\n";
         int c = readInt("Choice: ", 1, 4);
-
         if (c == 4) return;
 
         switch (c) {
             case 1: adminViewUsers(); break;
-            case 2: adminViewAllLoans(); break;
-            case 3: adminUpdateLoan(); break;
+            case 2: adminViewAccounts(); break;
+            case 3: adminViewAccountTransactions(); break;
+        }
+    }
+}
+
+void BankSystem::userMenu() {
+    while (true) {
+        std::cout << "1. List accounts\n";
+        std::cout << "2. Open new account\n";
+        std::cout << "3. Deposit\n";
+        std::cout << "4. Withdraw\n";
+        std::cout << "5. Transfer\n";
+        std::cout << "6. Transactions\n";
+        std::cout << "7. Logout\n";
+
+        int c = readInt("Choice: ", 1, 7);
+        if (c == 7) return;
+
+        switch (c) {
+            case 1: userListAccounts(); break;
+            case 2: userOpenAccount(); break;
+            case 3: userDeposit(); break;
+            case 4: userWithdraw(); break;
+            case 5: userTransfer(); break;
+            case 6: userTransactions(); break;
         }
     }
 }
@@ -200,221 +153,179 @@ void BankSystem::adminViewUsers() {
         return;
     }
 
-    for (auto u : users) {
-        std::cout << "Id: " << u->getId() << "\n";
-        std::cout << "Username: " << u->getUsername() << "\n";
-        std::cout << "Name: " << u->getFullName() << "\n";
-        std::cout << "Mobile: " << u->getMobile() << "\n";
-        std::cout << "Email: " << u->getEmail() << "\n";
+    for (const auto& u : users) {
+        std::cout << "Id: " << u.getId() << "\n";
+        std::cout << "Username: " << u.getUsername() << "\n";
+        std::cout << "Name: " << u.getFullName() << "\n";
+        std::cout << "Role: " << u.getRole() << "\n";
         std::cout << "\n";
     }
-
-    for (auto u : users) delete u;
 }
 
-void BankSystem::adminViewAllLoans() {
-    auto loans = db.getAllLoans();
-    if (loans.empty()) {
-        std::cout << "No loans\n";
-        return;
-    }
-
-    for (auto l : loans) {
-        std::cout << "Loan id: " << l->getId() << "\n";
-        std::cout << "User id: " << l->getUserId() << "\n";
-        std::cout << "Amount: " << std::fixed << std::setprecision(2) << l->getAmount() << "\n";
-        std::cout << "Rate: " << std::fixed << std::setprecision(2) << l->getInterestRate() << "\n";
-        std::cout << "Status: " << l->getStatus() << "\n";
-        std::cout << "\n";
-    }
-
-    for (auto l : loans) delete l;
-}
-
-void BankSystem::adminUpdateLoan() {
-    int loanId = readInt("Loan id: ", 1, 1000000000);
-    std::string status = readString("Status (APPROVED or REJECTED): ");
-    for (auto& c : status) c = (char)std::toupper((unsigned char)c);
-
-    if (status != "APPROVED" && status != "REJECTED") {
-        std::cout << "Invalid status\n";
-        return;
-    }
-
-    if (!db.updateLoanStatus(loanId, status)) {
-        std::cout << "Loan not found\n";
-        return;
-    }
-
-    std::cout << "Updated\n";
-}
-
-void BankSystem::userMenu() {
-    while (true) {
-        std::cout << "1. View accounts\n";
-        std::cout << "2. Deposit\n";
-        std::cout << "3. Withdraw\n";
-        std::cout << "4. View profile\n";
-        std::cout << "5. View transactions\n";
-        std::cout << "6. Apply loan\n";
-        std::cout << "7. View my loans\n";
-        std::cout << "8. Logout\n";
-        int c = readInt("Choice: ", 1, 8);
-
-        if (c == 8) {
-            delete currentUser;
-            currentUser = nullptr;
-            return;
-        }
-
-        switch (c) {
-            case 1: userViewAccounts(); break;
-            case 2: userDeposit(); break;
-            case 3: userWithdraw(); break;
-            case 4: userViewProfile(); break;
-            case 5: userViewTransactions(); break;
-            case 6: userApplyLoan(); break;
-            case 7: userViewLoans(); break;
-        }
-    }
-}
-
-void BankSystem::userViewAccounts() {
-    auto accs = db.getUserAccounts(*currentUser);
+void BankSystem::adminViewAccounts() {
+    auto accs = db.getAllAccounts();
     if (accs.empty()) {
         std::cout << "No accounts\n";
         return;
     }
 
-    for (auto a : accs) {
-        std::cout << "Account id: " << a->getId() << "\n";
+    for (const auto& a : accs) {
+        std::cout << "Account id: " << a->getAccountId() << "\n";
+        std::cout << "Account number: " << a->getAccountNumber() << "\n";
+        std::cout << "Type: " << a->getAccountType() << "\n";
+        std::cout << "User id: " << a->getUserId() << "\n";
+        std::cout << "Username: " << a->getUsername() << "\n";
+        std::cout << "Name: " << a->getFullName() << "\n";
+        std::cout << "Balance: " << std::fixed << std::setprecision(2) << a->getBalance() << "\n";
+        std::cout << "\n";
+    }
+}
+
+void BankSystem::adminViewAccountTransactions() {
+    std::string accNo = readLine("Account number: ");
+    std::unique_ptr<Account> acc;
+    if (!db.getAccountByNumber(accNo, acc)) {
+        std::cout << "Account not found\n";
+        return;
+    }
+
+    auto tx = db.getTransactionsForAccount(acc->getAccountId());
+    if (tx.empty()) {
+        std::cout << "No transactions\n";
+        return;
+    }
+
+    for (const auto& t : tx) {
+        std::cout << t.getTimestamp() << " ";
+        std::cout << t.getType() << " ";
+        std::cout << std::fixed << std::setprecision(2) << t.getAmount() << " ";
+        std::cout << "From " << t.getFromAccountId() << " ";
+        std::cout << "To " << t.getToAccountId() << "\n";
+    }
+}
+
+void BankSystem::userListAccounts() {
+    auto accs = db.getAccountsForUser(currentUser->getId());
+    if (accs.empty()) {
+        std::cout << "No accounts\n";
+        return;
+    }
+
+    for (const auto& a : accs) {
+        std::cout << "Account id: " << a->getAccountId() << "\n";
         std::cout << "Account number: " << a->getAccountNumber() << "\n";
         std::cout << "Type: " << a->getAccountType() << "\n";
         std::cout << "Balance: " << std::fixed << std::setprecision(2) << a->getBalance() << "\n";
         std::cout << "\n";
     }
-
-    for (auto a : accs) delete a;
 }
 
-Account* BankSystem::pickAccountFromUser() const {
-    auto accs = db.getUserAccounts(*currentUser);
+void BankSystem::userOpenAccount() {
+    if (!currentUser.has_value()) {
+        std::cout << "Login required\n";
+        return;
+    }
+
+    std::cout << "1. Savings\n";
+    std::cout << "2. Current\n";
+    int t = readInt("Choice: ", 1, 2);
+
+    std::string type = (t == 1 ? "SAVINGS" : "CURRENT");
+    std::string accNo;
+    std::string err;
+
+    if (!db.createAccount(currentUser->getId(), type, accNo, err)) {
+        std::cout << err << "\n";
+        return;
+    }
+
+    std::cout << "Account created\n";
+    std::cout << "Account number: " << accNo << "\n";
+    std::cout << "Opening balance: " << std::fixed << std::setprecision(2) << 500.0 << "\n";
+}
+
+bool BankSystem::pickUserAccount(std::unique_ptr<Account>& outAccount) const {
+    outAccount.reset();
+    auto accs = db.getAccountsForUser(currentUser->getId());
     if (accs.empty()) {
         std::cout << "No accounts\n";
-        return nullptr;
+        return false;
     }
 
     for (int i = 0; i < (int)accs.size(); i++) {
-        std::cout << (i + 1) << ". " << accs[i]->getAccountNumber()
-                  << " " << accs[i]->getAccountType()
-                  << " " << std::fixed << std::setprecision(2) << accs[i]->getBalance()
+        std::cout << (i + 1) << ". "
+                  << accs[i]->getAccountNumber() << " "
+                  << accs[i]->getAccountType() << " "
+                  << std::fixed << std::setprecision(2) << accs[i]->getBalance()
                   << "\n";
     }
 
-    int idx = readInt("Select account: ", 1, (int)accs.size());
-
-    Account* selected = accs[idx - 1];
-    accs[idx - 1] = nullptr;
-
-    for (auto a : accs) delete a;
-    return selected;
+    int idx = readInt("Select: ", 1, (int)accs.size());
+    outAccount = std::move(accs[idx - 1]);
+    return true;
 }
 
 void BankSystem::userDeposit() {
-    Account* acc = pickAccountFromUser();
-    if (!acc) return;
+    std::unique_ptr<Account> acc;
+    if (!pickUserAccount(acc)) return;
 
     double amt = readDouble("Amount: ", 1.0);
-    acc->deposit(amt);
 
-    db.updateBalance(acc->getId(), acc->getBalance());
-
-    Transaction t(acc->getId(), "DEPOSIT", amt, nowDateTime());
-    db.addTransaction(t);
+    std::string err;
+    if (!db.deposit(acc->getAccountId(), amt, err)) {
+        std::cout << err << "\n";
+        return;
+    }
 
     std::cout << "Deposit done\n";
-    delete acc;
 }
 
 void BankSystem::userWithdraw() {
-    Account* acc = pickAccountFromUser();
-    if (!acc) return;
+    std::unique_ptr<Account> acc;
+    if (!pickUserAccount(acc)) return;
 
     double amt = readDouble("Amount: ", 1.0);
 
-    if (!acc->withdraw(amt)) {
-        if (acc->getAccountType() == "FD") std::cout << "Withdraw not allowed for fixed deposit\n";
-        else std::cout << "Insufficient balance\n";
-        delete acc;
+    std::string err;
+    if (!db.withdraw(acc->getAccountId(), amt, err)) {
+        std::cout << err << "\n";
         return;
     }
-
-    db.updateBalance(acc->getId(), acc->getBalance());
-
-    Transaction t(acc->getId(), "WITHDRAW", amt, nowDateTime());
-    db.addTransaction(t);
 
     std::cout << "Withdraw done\n";
-    delete acc;
 }
 
-void BankSystem::userViewProfile() {
-    std::cout << "Id: " << currentUser->getId() << "\n";
-    std::cout << "Username: " << currentUser->getUsername() << "\n";
-    std::cout << "Name: " << currentUser->getFullName() << "\n";
-    std::cout << "Mobile: " << currentUser->getMobile() << "\n";
-    std::cout << "Email: " << currentUser->getEmail() << "\n";
-    std::cout << "Address: " << currentUser->getAddress() << "\n";
-    std::cout << "Aadhaar: " << currentUser->getAadhaar() << "\n";
+void BankSystem::userTransfer() {
+    std::unique_ptr<Account> fromAcc;
+    if (!pickUserAccount(fromAcc)) return;
+
+    std::string toAccNo = readLine("To account number: ");
+    double amt = readDouble("Amount: ", 1.0);
+
+    std::string err;
+    if (!db.transfer(fromAcc->getAccountId(), toAccNo, amt, err)) {
+        std::cout << err << "\n";
+        return;
+    }
+
+    std::cout << "Transfer done\n";
 }
 
-void BankSystem::userViewTransactions() {
-    Account* acc = pickAccountFromUser();
-    if (!acc) return;
+void BankSystem::userTransactions() {
+    std::unique_ptr<Account> acc;
+    if (!pickUserAccount(acc)) return;
 
-    auto tx = db.getAccountTransactions(acc->getId());
+    auto tx = db.getTransactionsForAccount(acc->getAccountId());
     if (tx.empty()) {
         std::cout << "No transactions\n";
-        delete acc;
         return;
     }
 
-    for (auto t : tx) {
-        std::cout << t->getDateTime() << " " << t->getType() << " " << std::fixed << std::setprecision(2) << t->getAmount() << "\n";
+    for (const auto& t : tx) {
+        std::cout << t.getTimestamp() << " ";
+        std::cout << t.getType() << " ";
+        std::cout << std::fixed << std::setprecision(2) << t.getAmount() << " ";
+        std::cout << "From " << t.getFromAccountId() << " ";
+        std::cout << "To " << t.getToAccountId() << "\n";
     }
-
-    for (auto t : tx) delete t;
-    delete acc;
-}
-
-void BankSystem::userApplyLoan() {
-    double amt = readDouble("Loan amount: ", 1.0);
-    double rate = 7.50;
-
-    Loan l(currentUser->getId(), amt, rate, "PENDING");
-    if (!db.addLoan(l)) {
-        std::cout << "Loan apply failed\n";
-        return;
-    }
-
-    std::cout << "Loan applied\n";
-    std::cout << "Loan id: " << l.getId() << "\n";
-}
-
-void BankSystem::userViewLoans() {
-    auto loans = db.getUserLoans(currentUser->getId());
-    if (loans.empty()) {
-        std::cout << "No loans\n";
-        return;
-    }
-
-    for (auto l : loans) {
-        std::cout << "Loan id: " << l->getId() << "\n";
-        std::cout << "Amount: " << std::fixed << std::setprecision(2) << l->getAmount() << "\n";
-        std::cout << "Rate: " << std::fixed << std::setprecision(2) << l->getInterestRate() << "\n";
-        std::cout << "Status: " << l->getStatus() << "\n";
-        std::cout << "\n";
-    }
-
-    for (auto l : loans) delete l;
 }

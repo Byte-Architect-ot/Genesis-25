@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/shreyashh/Project/genesis/WiseVault/include
+CXX_INCLUDES = -I/home/shreyashh/Project/genesis/WiseVault/include -I/home/shreyashh/Project/genesis/WiseVault/third_party
 
 CXX_FLAGS = -std=gnu++17
 
